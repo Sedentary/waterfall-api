@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var connStr = 'mongodb://localhost:27017/waterfall';
+var connStr = 'mongodb://waterfall:84060989@ds041603.mongolab.com:41603/waterfall';
 
 mongoose.connect(connStr);
 
