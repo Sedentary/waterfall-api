@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rm -rf doc
+node_modules/apidoc/bin/apidoc -o doc -e node_modules
