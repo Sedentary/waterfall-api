@@ -5,9 +5,6 @@ var helmet = require('helmet');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 // Database connection handler
 require('./config/mongoose');
 

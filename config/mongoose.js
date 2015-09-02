@@ -19,7 +19,7 @@ mongoose.connection.on('disconnected', function () {
 });
 
 mongoose.connection.once('open', function () {
-    console.log('Mongoose default connection is open')
+    console.log('Mongoose default connection is open');
 });
 
 process.on('SIGINT', function () {
