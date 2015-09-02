@@ -64,4 +64,4 @@ CardSchema.post('validate', function(doc) {
   doc.updated_at = Date.now();
 });
 
-module.exports = mongoose.model('Comment', CardSchema);
+module.exports = mongoose.model('Card', CardSchema);

@@ -4,20 +4,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var LabelSchema = new Schema({
+var ListSchema = new Schema({
     name: {
         type: String,
         required: true
     },
-    color: {
-        type: String,
-        required: true
-    },
-    project: {
-        type: ObjectId,
-        ref: 'Project',
-        required: true
-    },
+    cards: [
+        {
+            type: ObjectId,
+            ref: 'Card'
+        }
+    ],
     created_at: {
         type: Date,
         default: Date.now
@@ -28,8 +25,8 @@ var LabelSchema = new Schema({
     }
 });
 
-LabelSchema.post('validate', function(doc) {
+ListSchema.post('validate', function(doc) {
   doc.updated_at = Date.now();
 });
 
-module.exports = mongoose.model('Label', LabelSchema);
+module.exports = mongoose.model('List', ListSchema);
