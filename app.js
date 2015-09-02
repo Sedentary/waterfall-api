@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// Database connection handler
+require('./config/mongoose');
+
 var app = express();
 
 app.use(helmet());
