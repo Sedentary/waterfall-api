@@ -1,6 +1,7 @@
 {
   "node": true,
 
+  "globalstrict": true,
   "curly": true,
   "latedef": true,
   "quotmark": true,
@@ -8,5 +9,8 @@
   "unused": true,
   "trailing": true,
   "esnext": true,
-  "varstmt": true
+  "varstmt": true,
+
+  "globals": {
+  }
 }
