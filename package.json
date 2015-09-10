@@ -22,5 +22,8 @@
   },
   "pre-commit": [
     "lint"
-  ]
+  ],
+  "engines": {
+    "node" : ">=4.0.0"
+  }
 }
