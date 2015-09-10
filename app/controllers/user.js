@@ -3,10 +3,10 @@
 const userService = require('../services/user');
 
 module.exports = {
-    list: (req, res, next) => {
+    list: (req, res) => {
         userService.list((err, users) => {
             if (err) {
-                return next(err);
+                return res.status(500).send('Error listing users');
             }
 
             res.status(200).json(users);
@@ -40,6 +40,16 @@ module.exports = {
             }
 
             res.status(200).json(user);
+        });
+    },
+
+    delete: (req, res) => {
+        userService.delete(req.params.id, (err) => {
+            if (err) {
+                return res.status(err.status).send(err.cause);
+            }
+
+            res.status(200);
         });
     }
 };
