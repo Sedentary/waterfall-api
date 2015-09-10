@@ -1,9 +1,9 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
+const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -23,7 +23,7 @@ let UserSchema = new Schema({
     }
 });
 
-UserSchema.post('validate', function (doc) {
+UserSchema.post('validate', doc => {
     doc.updated_at = Date.now();
 });
 

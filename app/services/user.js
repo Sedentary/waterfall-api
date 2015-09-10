@@ -1,26 +1,25 @@
 'use strict';
 
-let userModel = require('../models/user');
+const userModel = require('../models/user');
 
 module.exports = {
-    list: function (cb) {
-        userModel
-            .find({})
-            .exec(function (err, users) {
-                if (err) {
-                    return cb(err);
-                }
-
-                cb(null, users);
-            });
-    },
-    create: function (params, cb) {
-        userModel.findOne({id: params.id}, function (err, user) {
+    list: cb => {
+        userModel.find({}, (err, users) => {
             if (err) {
                 return cb(err);
             }
+
+            cb(null, users);
+        });
+    },
+
+    create: (params, cb) => {
+        userModel.findOne({email: params.email}, (err, user) => {
+            if (err) {
+                return cb({status: 500, cause: 'Error querying for user'});
+            }
             if (user) {
-                return cb(null, user);
+                return cb({status: 400, cause: 'An user with same email already exists'});
             }
 
             let model = {
@@ -28,37 +27,50 @@ module.exports = {
                 name: params.name
             };
 
-            userModel.create(model, function (err, user) {
+            userModel.create(model, (err, user) => {
                 if (err) {
-                    return cb(err);
+                    return cb({status: 500, cause: 'Error creating user'});
                 }
 
                 cb(null, user);
             });
         });
     },
-    update: function (id, params, cb) {
-        userModel.findById(id)
-            .exec(function (err, user) {
+
+    get: (id, cb) => {
+        userModel.findById(id, (err, user) => {
+            if (err) {
+                return cb({status: 500, cause: 'Error querying for user'});
+            }
+            if (!user) {
+                return cb({status: 404, cause: 'User not found'});
+            }
+
+            cb(null, user);
+        });
+    },
+
+    update: (id, params, cb) => {
+        userModel.findById(id, (err, user) => {
+            if (err) {
+                return cb({status: 500, cause: 'Error querying for user'});
+            }
+            if (!user) {
+                return cb({status: 404, cause: 'User not found'});
+            }
+
+            let model = {
+                name: params.name,
+                email: params.email
+            };
+
+            userModel.update({_id: id}, {$set: model}, (err, user) => {
                 if (err) {
-                    return cb(err);
-                }
-                if (!user) {
-                    return cb();
+                    return cb({status: 500, cause: 'Error updating user'});
                 }
 
-                let model = {
-                    name: params.name,
-                    email: params.email
-                };
-
-                userModel.update({_id: id}, {$set: model}, function (err, user) {
-                    if (err) {
-                        return cb(err);
-                    }
-
-                    cb(null, user);
-                });
+                cb(null, user);
             });
+        });
     }
 };

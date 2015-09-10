@@ -1,36 +1,45 @@
 'use strict';
 
-let userService = require('../services/user');
+const userService = require('../services/user');
 
-exports.list = function (req, res, next) {
-    userService.list(function (err, users) {
-        if (err) {
-            return next(err);
-        }
+module.exports = {
+    list: (req, res, next) => {
+        userService.list((err, users) => {
+            if (err) {
+                return next(err);
+            }
 
-        res.status(200).json(users);
-    });
-};
+            res.status(200).json(users);
+        });
+    },
 
-exports.create = function (req, res, next) {
-    userService.create(req.body, function (err, user) {
-        if (err) {
-            return next(err);
-        }
+    create: (req, res) => {
+        userService.create(req.body, (err, user) => {
+            if (err) {
+                return res.status(err.status).send(err.cause);
+            }
 
-        res.status(200).json(user);
-    });
-};
+            res.status(200).json(user);
+        });
+    },
 
-exports.update = function (req, res, next) {
-    userService.update(req.params.id, req.body, function (err, user) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
+    get: (req, res) => {
+        userService.get(req.params.id, (err, user) => {
+            if (err) {
+                return res.status(err.status).send(err.cause);
+            }
 
-        res.status(200).json(user);
-    });
+            res.status(200).json(user);
+        });
+    },
+
+    update: (req, res) => {
+        userService.update(req.params.id, req.body, (err, user) => {
+            if (err) {
+                return res.status(err.status).send(err.cause);
+            }
+
+            res.status(200).json(user);
+        });
+    }
 };

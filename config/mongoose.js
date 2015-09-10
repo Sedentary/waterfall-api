@@ -1,29 +1,29 @@
 'use strict';
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const connStr = process.env.WATERFALL_DB;
 
 mongoose.connect(connStr);
 
-mongoose.connection.on('connected', function () {
+mongoose.connection.on('connected', () => {
     console.log('Mongoose default connection open to ' + connStr);
 });
 
-mongoose.connection.on('error', function (err) {
+mongoose.connection.on('error', err => {
     console.log('Mongoose default connection error: ' + err);
 });
 
-mongoose.connection.on('disconnected', function () {
+mongoose.connection.on('disconnected', () => {
     console.log('Mongoose default connection disconnected');
 });
 
-mongoose.connection.once('open', function () {
+mongoose.connection.once('open', () => {
     console.log('Mongoose default connection is open');
 });
 
-process.on('SIGINT', function () {
-    mongoose.connection.close(function () {
+process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
         console.log('Mongoose default connection disconnected through app termination');
         process.exit(0);
     });

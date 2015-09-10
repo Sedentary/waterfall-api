@@ -1,10 +1,10 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-let ObjectId = Schema.Types.ObjectId;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
-let ProjectSchema = new Schema({
+const ProjectSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -35,7 +35,7 @@ let ProjectSchema = new Schema({
     }
 });
 
-ProjectSchema.post('validate', function (doc) {
+ProjectSchema.post('validate', doc => {
     doc.updated_at = Date.now();
 });
 
