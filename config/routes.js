@@ -3,8 +3,8 @@
 module.exports = function (app) {
 
     // routes
-    var index = require('../app/routes/index');
-    var users = require('../app/routes/users');
+    let index = require('../app/routes/index');
+    let users = require('../app/routes/users');
 
     app.use(function (req, res, next) {
         // remove express http headers
@@ -18,7 +18,7 @@ module.exports = function (app) {
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
-        var err = new Error('Not Found');
+        let err = new Error('Not Found');
         err.status = 404;
         next(err);
     });

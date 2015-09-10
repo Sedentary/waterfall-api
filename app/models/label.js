@@ -1,10 +1,10 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId;
 
-var LabelSchema = new Schema({
+let LabelSchema = new Schema({
     name: {
         type: String,
         required: true

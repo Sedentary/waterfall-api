@@ -1,14 +1,14 @@
 'use strict';
 
-var express = require('express');
-var helmet = require('helmet');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+let express = require('express');
+let helmet = require('helmet');
+let logger = require('morgan');
+let bodyParser = require('body-parser');
 
 // Database connection handler
 require('./config/mongoose');
 
-var app = express();
+let app = express();
 
 app.use(helmet());
 

@@ -1,8 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var connStr = process.env.WATERFALL_DB;
+const connStr = process.env.WATERFALL_DB;
 
 mongoose.connect(connStr);
 

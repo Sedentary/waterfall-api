@@ -1,6 +1,6 @@
 'use strict';
 
-var userService = require('../services/user');
+let userService = require('../services/user');
 
 exports.list = function (req, res, next) {
     userService.list(function (err, users) {

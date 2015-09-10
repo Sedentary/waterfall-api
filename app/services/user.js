@@ -1,6 +1,6 @@
 'use strict';
 
-var userModel = require('../models/user');
+let userModel = require('../models/user');
 
 module.exports = {
     list: function (cb) {
