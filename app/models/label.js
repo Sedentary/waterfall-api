@@ -28,8 +28,8 @@ var LabelSchema = new Schema({
     }
 });
 
-LabelSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+LabelSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 module.exports = mongoose.model('Label', LabelSchema);

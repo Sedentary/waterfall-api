@@ -24,8 +24,8 @@ var CommentSchema = new Schema({
     }
 });
 
-CommentSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+CommentSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 var CardSchema = new Schema({
@@ -60,8 +60,8 @@ var CardSchema = new Schema({
     }
 });
 
-CardSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+CardSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 module.exports = mongoose.model('Card', CardSchema);

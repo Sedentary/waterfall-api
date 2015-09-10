@@ -35,8 +35,8 @@ var ProjectSchema = new Schema({
     }
 });
 
-ProjectSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+ProjectSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

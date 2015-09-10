@@ -22,8 +22,8 @@ var UserSchema = new Schema({
     }
 });
 
-UserSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+UserSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 module.exports = mongoose.model('User', UserSchema);

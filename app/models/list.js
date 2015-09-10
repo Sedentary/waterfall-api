@@ -25,8 +25,8 @@ var ListSchema = new Schema({
     }
 });
 
-ListSchema.post('validate', function(doc) {
-  doc.updated_at = Date.now();
+ListSchema.post('validate', function (doc) {
+    doc.updated_at = Date.now();
 });
 
 module.exports = mongoose.model('List', ListSchema);
