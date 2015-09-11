@@ -1,8 +1,5 @@
 'use strict';
 
-const ProjectModel = require('../models/project');
-const ListModel = require('../models/list');
-const CardModel = require('../models/card');
 const LabelModel = require('../models/label');
 
 module.exports = {
@@ -11,9 +8,11 @@ module.exports = {
      *
      * @param cb
      */
-    list: (cb) => {
-        ProjectModel
-            .find({})
+    list: (project, cb) => {
+        LabelModel
+            .find({
+                project: project
+            })
             .exec((err, result) => {
                 if (err) {
                     return cb({status: 500, message: 'Error listing'});
@@ -29,38 +28,17 @@ module.exports = {
      * @param cb
      */
     create: (params, cb) => {
-        let project = new ProjectModel();
-        project.name = params.name;
-        project.private = params.private;
-        if (params.users) {
-            project.users = Array.isArray(params.users) ? params.users : params.users.split(',');
-        }
-        project.lists = [];
+        let model = new LabelModel();
+        model.name = params.name;
+        model.color = params.color;
+        model.project = params.project;
 
-        project.save((err) => {
+        model.save((err) => {
             if (err) {
                 return cb({status: 500, message: 'Error creating'});
             }
 
-            cb(null, project);
-        });
-    },
-
-    /**
-     *
-     * @param id
-     * @param cb
-     */
-    get: (id, cb) => {
-        ProjectModel.findById(id, (err, data) => {
-            if (err) {
-                return cb({status: 500, message: 'Error querying'});
-            }
-            if (!data) {
-                return cb({status: 404, message: 'Not found'});
-            }
-
-            cb(null, data);
+            cb(null, model);
         });
     },
 
@@ -71,7 +49,7 @@ module.exports = {
      * @param cb
      */
     update: (id, params, cb) => {
-        ProjectModel.findById(id, (err, data) => {
+        LabelModel.findById(id, (err, data) => {
             if (err) {
                 return cb({status: 500, message: 'Error querying'});
             }
@@ -81,11 +59,9 @@ module.exports = {
 
             let model = {};
             model.name = params.name;
-            model.private = params.private;
-            if (params.users) { model.users = Array.isArray(params.users) ? params.users : params.users.split(','); }
-            if (params.lists) { model.lists = Array.isArray(params.lists) ? params.lists : params.lists.split(','); }
+            model.color = params.color;
 
-            ProjectModel.update({ _id: id }, { $set: model }, (err, data) => {
+            LabelModel.update({ _id: id }, { $set: model }, (err, data) => {
                 if (err) {
                     return cb({status: 500, message: 'Error updating'});
                 }
@@ -101,7 +77,7 @@ module.exports = {
      * @param cb
      */
     delete: (id, cb) => {
-        ProjectModel.findById(id, (err, data) => {
+        LabelModel.findById(id, (err, data) => {
             if (err) {
                 return cb({status: 500, message: 'Error querying'});
             }
@@ -115,10 +91,6 @@ module.exports = {
                 }
 
                 cb(null, { message: 'Deleted' });
-
-                ListModel.remove({ project: id });
-                CardModel.remove({ project: id });
-                LabelModel.remove({ project: id });
             });
         });
     }
