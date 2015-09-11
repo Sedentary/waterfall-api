@@ -50,6 +50,11 @@ const CardSchema = new Schema({
         }
     ],
     comments: [CommentSchema],
+    project: {
+        type: ObjectId,
+        ref: 'Project',
+        required: true
+    },
     created_at: {
         type: Date,
         default: Date.now

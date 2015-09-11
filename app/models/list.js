@@ -15,6 +15,11 @@ const ListSchema = new Schema({
             ref: 'Card'
         }
     ],
+    project: {
+        type: ObjectId,
+        ref: 'Project',
+        required: true
+    },
     created_at: {
         type: Date,
         default: Date.now
