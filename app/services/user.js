@@ -9,18 +9,12 @@ module.exports = {
      * @param pagination
      * @param cb
      */
-    list: (pagination, cb) => {
-        if (typeof pagination !== 'object') {
-            pagination = {};
-        }
-
-        userModel.find({})
-            .sort(pagination.sort || {})
-            .skip(pagination.skip || 0)
-            .limit(pagination.limit || 100)
+    list: (cb) => {
+        userModel
+            .find({})
             .exec((err, users) => {
                 if (err) {
-                    return cb(err);
+                    return cb({status: 500, message: 'Error listing users'});
                 }
 
                 cb(null, users);
@@ -35,10 +29,10 @@ module.exports = {
     create: (params, cb) => {
         userModel.findOne({email: params.email}, (err, user) => {
             if (err) {
-                return cb({status: 500, cause: 'Error querying for user'});
+                return cb({status: 500, message: 'Error querying for user'});
             }
             if (user) {
-                return cb({status: 400, cause: 'An user with same email already exists'});
+                return cb({status: 400, message: 'An user with same email already exists'});
             }
 
             let model = {
@@ -48,7 +42,7 @@ module.exports = {
 
             userModel.create(model, (err, user) => {
                 if (err) {
-                    return cb({status: 500, cause: 'Error creating user'});
+                    return cb({status: 500, message: 'Error creating user'});
                 }
 
                 cb(null, user);
@@ -64,10 +58,10 @@ module.exports = {
     get: (id, cb) => {
         userModel.findById(id, (err, user) => {
             if (err) {
-                return cb({status: 500, cause: 'Error querying for user'});
+                return cb({status: 500, message: 'Error querying for user'});
             }
             if (!user) {
-                return cb({status: 404, cause: 'User not found'});
+                return cb({status: 404, message: 'User not found'});
             }
 
             cb(null, user);
@@ -83,10 +77,10 @@ module.exports = {
     update: (id, params, cb) => {
         userModel.findById(id, (err, user) => {
             if (err) {
-                return cb({status: 500, cause: 'Error querying for user'});
+                return cb({status: 500, message: 'Error querying for user'});
             }
             if (!user) {
-                return cb({status: 404, cause: 'User not found'});
+                return cb({status: 404, message: 'User not found'});
             }
 
             let model = {
@@ -94,12 +88,12 @@ module.exports = {
                 email: params.email
             };
 
-            userModel.update({_id: id}, {$set: model}, (err, user) => {
+            userModel.update({ _id: id }, { $set: model }, (err, data) => {
                 if (err) {
-                    return cb({status: 500, cause: 'Error updating user'});
+                    return cb({status: 500, message: 'Error updating user'});
                 }
 
-                cb(null, user);
+                cb(null, data);
             });
         });
     },
@@ -112,15 +106,15 @@ module.exports = {
     delete: (id, cb) => {
         userModel.findById(id, (err, user) => {
             if (err) {
-                return cb({status: 500, cause: 'Error querying for user'});
+                return cb({status: 500, message: 'Error querying for user'});
             }
             if (!user) {
-                return cb({status: 404, cause: 'User not found'});
+                return cb({status: 404, message: 'User not found'});
             }
 
             user.remove((err) => {
                 if (err) {
-                    return cb({status: 500, cause: 'Error deleting user'});
+                    return cb({status: 500, message: 'Error deleting user'});
                 }
 
                 cb();

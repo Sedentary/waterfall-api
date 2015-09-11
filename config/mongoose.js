@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const connStr = process.env.WATERFALL_DB;
+const connStr = process.env.WATERFALL_DB || 'mongodb://localhost:27017/waterfall-dev';
 
 mongoose.connect(connStr);
 

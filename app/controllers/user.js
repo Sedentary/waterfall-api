@@ -6,7 +6,7 @@ module.exports = {
     list: (req, res) => {
         userService.list((err, users) => {
             if (err) {
-                return res.status(500).send('Error listing users');
+                return res.status(err.status).send(err.message);
             }
 
             res.status(200).json(users);
@@ -16,7 +16,7 @@ module.exports = {
     create: (req, res) => {
         userService.create(req.body, (err, user) => {
             if (err) {
-                return res.status(err.status).send(err.cause);
+                return res.status(err.status).send(err.message);
             }
 
             res.status(200).json(user);
@@ -26,7 +26,7 @@ module.exports = {
     get: (req, res) => {
         userService.get(req.params.id, (err, user) => {
             if (err) {
-                return res.status(err.status).send(err.cause);
+                return res.status(err.status).send(err.message);
             }
 
             res.status(200).json(user);
@@ -34,19 +34,19 @@ module.exports = {
     },
 
     update: (req, res) => {
-        userService.update(req.params.id, req.body, (err, user) => {
+        userService.update(req.params.id, req.body, (err, data) => {
             if (err) {
-                return res.status(err.status).send(err.cause);
+                return res.status(err.status).send(err.message);
             }
 
-            res.status(200).json(user);
+            res.status(200).json(data);
         });
     },
 
     delete: (req, res) => {
         userService.delete(req.params.id, (err) => {
             if (err) {
-                return res.status(err.status).send(err.cause);
+                return res.status(err.status).send(err.message);
             }
 
             res.status(200);
