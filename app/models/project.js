@@ -39,4 +39,8 @@ ProjectSchema.post('validate', doc => {
     doc.updated_at = Date.now();
 });
 
+ProjectSchema.path('users').validate( value => {
+    return value.length !== 0;
+}, 'users should be greater than zero.');
+
 module.exports = mongoose.model('Project', ProjectSchema);
