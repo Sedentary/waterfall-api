@@ -9,8 +9,6 @@
   "unused": true,
   "trailing": true,
   "esnext": true,
-  "varstmt": true,
-
   "globals": {
   }
 }
