@@ -1,6 +1,6 @@
 'use strict';
 
-const Service = require('../services/label');
+const Service = require('../services/list');
 
 module.exports = {
     list: (req, res) => {
