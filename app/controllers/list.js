@@ -1,10 +1,10 @@
 'use strict';
 
-const ProjectService = require('../services/project');
+const Service = require('../services/label');
 
 module.exports = {
     list: (req, res) => {
-        ProjectService.list((err, result) => {
+        Service.list(req.params.project_id, (err, result) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -14,17 +14,7 @@ module.exports = {
     },
 
     create: (req, res) => {
-        ProjectService.create(req.body, (err, result) => {
-            if (err) {
-                return res.status(err.status).send(err.message);
-            }
-
-            res.status(200).json(result);
-        });
-    },
-
-    get: (req, res) => {
-        ProjectService.get(req.params.id, (err, result) => {
+        Service.create(req.body, (err, result) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -34,7 +24,7 @@ module.exports = {
     },
 
     update: (req, res) => {
-        ProjectService.update(req.params.id, req.body, (err, result) => {
+        Service.update(req.params.id, req.body, (err, result) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -44,7 +34,7 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        ProjectService.delete(req.params.id, (err, data) => {
+        Service.delete(req.params.id, (err, data) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }

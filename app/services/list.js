@@ -1,6 +1,6 @@
 'use strict';
 
-const LabelModel = require('../models/label');
+const ListModel = require('../models/list');
 
 module.exports = {
 
@@ -10,7 +10,7 @@ module.exports = {
      * @param cb
      */
     list: (project, cb) => {
-        LabelModel
+        ListModel
             .find({
                 project: project
             })
@@ -29,9 +29,9 @@ module.exports = {
      * @param cb
      */
     create: (params, cb) => {
-        let model = new LabelModel();
+        let model = new ListModel();
         model.name = params.name;
-        model.color = params.color;
+        model.cards = [];
         model.project = params.project;
 
         model.save(err => {
@@ -50,7 +50,7 @@ module.exports = {
      * @param cb
      */
     update: (id, params, cb) => {
-        LabelModel.findById(id, (err, data) => {
+        ListModel.findById(id, (err, data) => {
             if (err) {
                 return cb({status: 500, message: `Error querying: ${err.message}`});
             }
@@ -60,9 +60,9 @@ module.exports = {
 
             let model = {};
             model.name = params.name;
-            model.color = params.color;
+            if (params.cards) { model.cards = Array.isArray(params.cards) ? params.cards : params.cards.split(','); }
 
-            LabelModel.update({ _id: id }, { $set: model }, (err, data) => {
+            ListModel.update({_id: id}, {$set: model}, (err, data) => {
                 if (err) {
                     return cb({status: 500, message: `Error updating: ${err.message}`});
                 }
@@ -78,7 +78,7 @@ module.exports = {
      * @param cb
      */
     delete: (id, cb) => {
-        LabelModel.findById(id, (err, data) => {
+        ListModel.findById(id, (err, data) => {
             if (err) {
                 return cb({status: 500, message: `Error querying: ${err.message}`});
             }
@@ -91,7 +91,7 @@ module.exports = {
                     return cb({status: 500, message: `Error deleting: ${err.message}`});
                 }
 
-                cb(null, { message: 'Deleted' });
+                cb(null, {message: 'Deleted'});
             });
         });
     }

@@ -1,10 +1,10 @@
 'use strict';
 
-const userService = require('../services/user');
+const UserService = require('../services/user');
 
 module.exports = {
     list: (req, res) => {
-        userService.list((err, users) => {
+        UserService.list((err, users) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -14,7 +14,7 @@ module.exports = {
     },
 
     create: (req, res) => {
-        userService.create(req.body, (err, user) => {
+        UserService.create(req.body, (err, user) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -24,7 +24,7 @@ module.exports = {
     },
 
     get: (req, res) => {
-        userService.get(req.params.id, (err, user) => {
+        UserService.get(req.params.id, (err, user) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     update: (req, res) => {
-        userService.update(req.params.id, req.body, (err, data) => {
+        UserService.update(req.params.id, req.body, (err, data) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        userService.delete(req.params.id, (err) => {
+        UserService.delete(req.params.id, (err) => {
             if (err) {
                 return res.status(err.status).send(err.message);
             }
