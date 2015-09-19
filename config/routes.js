@@ -7,6 +7,7 @@ module.exports = (app) => {
     const user = require('../app/routes/user');
     const project = require('../app/routes/project');
     const label = require('../app/routes/label');
+    const list = require('../app/routes/list');
 
     app.use((req, res, next) => {
         // remove express http headers
@@ -19,6 +20,7 @@ module.exports = (app) => {
     app.use('/api/v1/user', user);
     app.use('/api/v1/project', project);
     app.use('/api/v1/label', label);
+    app.use('/api/v1/list', list);
 
     // catch 404 and forward to error handler
     app.use((req, res, next) => {
