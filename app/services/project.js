@@ -16,7 +16,7 @@ module.exports = {
             .find({})
             .exec((err, result) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error listing'});
+                    return cb({status: 500, message: `Error listing: ${err.message}`});
                 }
 
                 cb(null, result);
@@ -39,7 +39,7 @@ module.exports = {
 
         project.save((err) => {
             if (err) {
-                return cb({status: 500, message: 'Error creating'});
+                return cb({status: 500, message: `Error creating: ${err.message}`});
             }
 
             cb(null, project);
@@ -54,7 +54,7 @@ module.exports = {
     get: (id, cb) => {
         ProjectModel.findById(id, (err, data) => {
             if (err) {
-                return cb({status: 500, message: 'Error querying'});
+                return cb({status: 500, message: `Error querying: ${err.message}`});
             }
             if (!data) {
                 return cb({status: 404, message: 'Not found'});
@@ -73,7 +73,7 @@ module.exports = {
     update: (id, params, cb) => {
         ProjectModel.findById(id, (err, data) => {
             if (err) {
-                return cb({status: 500, message: 'Error querying'});
+                return cb({status: 500, message: `Error updating: ${err.message}`});
             }
             if (!data) {
                 return cb({status: 404, message: 'Not found'});
@@ -87,7 +87,7 @@ module.exports = {
 
             ProjectModel.update({ _id: id }, { $set: model }, (err, data) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error updating'});
+                    return cb({status: 500, message: `Error updating: ${err.message}`});
                 }
 
                 cb(null, data);
@@ -103,7 +103,7 @@ module.exports = {
     delete: (id, cb) => {
         ProjectModel.findById(id, (err, data) => {
             if (err) {
-                return cb({status: 500, message: 'Error querying'});
+                return cb({status: 500, message: `Error querying: ${err.message}`});
             }
             if (!data) {
                 return cb({status: 404, message: 'Not found'});
@@ -111,7 +111,7 @@ module.exports = {
 
             data.remove((err) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error deleting'});
+                    return cb({status: 500, message: `Error deleting: ${err.message}`});
                 }
 
                 cb(null, { message: 'Deleted' });

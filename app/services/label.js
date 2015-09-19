@@ -15,7 +15,7 @@ module.exports = {
             })
             .exec((err, result) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error listing'});
+                    return cb({status: 500, message: `Error listing: ${err.message}`});
                 }
 
                 cb(null, result);
@@ -35,7 +35,7 @@ module.exports = {
 
         model.save((err) => {
             if (err) {
-                return cb({status: 500, message: 'Error creating'});
+                return cb({status: 500, message: `Error creating: ${err.message}`});
             }
 
             cb(null, model);
@@ -51,7 +51,7 @@ module.exports = {
     update: (id, params, cb) => {
         LabelModel.findById(id, (err, data) => {
             if (err) {
-                return cb({status: 500, message: 'Error querying'});
+                return cb({status: 500, message: `Error querying: ${err.message}`});
             }
             if (!data) {
                 return cb({status: 404, message: 'Not found'});
@@ -63,7 +63,7 @@ module.exports = {
 
             LabelModel.update({ _id: id }, { $set: model }, (err, data) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error updating'});
+                    return cb({status: 500, message: `Error updating: ${err.message}`});
                 }
 
                 cb(null, data);
@@ -79,7 +79,7 @@ module.exports = {
     delete: (id, cb) => {
         LabelModel.findById(id, (err, data) => {
             if (err) {
-                return cb({status: 500, message: 'Error querying'});
+                return cb({status: 500, message: `Error querying: ${err.message}`});
             }
             if (!data) {
                 return cb({status: 404, message: 'Not found'});
@@ -87,7 +87,7 @@ module.exports = {
 
             data.remove((err) => {
                 if (err) {
-                    return cb({status: 500, message: 'Error deleting'});
+                    return cb({status: 500, message: `Error deleting: ${err.message}`});
                 }
 
                 cb(null, { message: 'Deleted' });
