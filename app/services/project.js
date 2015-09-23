@@ -60,6 +60,12 @@ module.exports = {
                 return cb({status: 404, message: 'Not found'});
             }
 
+            for (let i = 0, len = data.lists.length; i < len; i++) {
+                let list = data.lists[i];
+                ListModel.findById(list, (err, data) => {
+                    list = data;
+                });
+            }
             cb(null, data);
         });
     },
