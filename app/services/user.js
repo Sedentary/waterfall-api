@@ -36,6 +36,7 @@ module.exports = {
 
             let model = {
                 email: params.email,
+                password: params.password,
                 name: params.name
             };
 

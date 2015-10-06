@@ -8,6 +8,10 @@ module.exports = (app) => {
     const project = require('../app/routes/project');
     const label = require('../app/routes/label');
     const list = require('../app/routes/list');
+    //const passport = require('passport');
+    //const LocalStrategy = require('passport-local').Strategy;
+
+    // TODO auth
 
     app.use((req, res, next) => {
         // remove express http headers

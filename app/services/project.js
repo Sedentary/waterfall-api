@@ -39,6 +39,7 @@ module.exports = {
 
         project.save((err) => {
             if (err) {
+                console.log(err);
                 return cb({status: 500, message: `Error creating: ${err.message}`});
             }
 

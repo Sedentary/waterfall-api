@@ -14,6 +14,7 @@ module.exports = {
     },
 
     create: (req, res) => {
+        console.log(req.body);
         ProjectService.create(req.body, (err, result) => {
             if (err) {
                 return res.status(err.status).send(err.message);
